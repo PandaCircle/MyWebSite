@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Orchard.Mvc.Extensions;
+using Orchard.Themes;
 
 namespace DeviceManageSite.Controllers
 {
@@ -33,22 +34,24 @@ namespace DeviceManageSite.Controllers
             return View();
         }
 
+        [Themed]
         public ActionResult Add()
         {
-            if (OrchardService.Authorizer.Authorize(Permissions.ResourceAdmin,T("需要更高的权限建立分类")))
+            if (!OrchardService.Authorizer.Authorize(Permissions.ResourceAdmin,T("需要更高的权限建立分类")))
                 return new HttpUnauthorizedResult();
             return View();
         }
 
         [HttpPost,ActionName("Add")]
+        [Themed]
         public ActionResult AddPost(string resType,string clsName,string returnUrl)
         {
             if (string.IsNullOrWhiteSpace(clsName))
                 ModelState.AddModelError("clsName", "分类名不能为空");
             var resTypeResult = _resourceManageService.GetResTypeByName(resType);
-            if (resType == null)
+            if (resTypeResult == null)
                 ModelState.AddModelError("resType", "找不到对应资源类型，无法添加分类");
-            if (resTypeResult.Classes.Select(i => i.ClsName).Contains(clsName))
+            else if (resTypeResult.Classes.Select(i => i.ClsName).Contains(clsName))
                 ModelState.AddModelError("clsName", "该分类已存在，无需创建");
             if (!ModelState.IsValid)
                 return View();
@@ -73,11 +76,11 @@ namespace DeviceManageSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult ResourceClssify(int[] ids,string clsName,string returnUrl)
+        public ActionResult Edit(string clsName,string returnUrl)
         {
             if (!OrchardService.Authorizer.Authorize(Permissions.ResourceBasic, T("不具有更改分类的权限")))
                 return new HttpUnauthorizedResult();
-            _resourceManageService.RemoveClassifyResource(ids, clsName);
+            
 
             return this.RedirectLocal(returnUrl, () => RedirectToAction("Index"));
         }

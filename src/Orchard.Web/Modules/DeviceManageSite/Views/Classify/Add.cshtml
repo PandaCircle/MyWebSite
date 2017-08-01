@@ -1,4 +1,8 @@
 ﻿
+<fieldset>
+    @Html.ValidationSummary()
+</fieldset>
+
 @using (Html.BeginFormAntiForgeryPost())
 {
     <fieldset>
@@ -6,7 +10,13 @@
         <input type="text" name="ClsName" />
     </fieldset>
     <fieldset>
-        
+        <select id="resType" name="resType">
+            @Html.SelectOption("IP地址",true,T("IP地址").ToString())
+            @Html.SelectOption("电话",true,T("电话").ToString())
+        </select>
+    </fieldset>
+    <fieldset>
+        <button type="submit">@T("添加")</button>
     </fieldset>
     
 }

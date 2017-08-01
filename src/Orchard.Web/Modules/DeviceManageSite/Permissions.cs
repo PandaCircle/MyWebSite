@@ -10,8 +10,8 @@ namespace DeviceManageSite
     public class Permissions : IPermissionProvider
     {
 
-        public static readonly Permission ResourceAdmin = new Permission { Name = "ResourceAdmin", Description = "Manage All Of Resource Component",ImpliedBy = new[] { ResourceBasic} };
-        public static readonly Permission ResourceBasic = new Permission { Name = "ResourceBasic", Description = "Edit,Update Resource" };
+        public static readonly Permission ResourceAdmin = new Permission { Name = "ResourceAdmin", Description = "Manage All Of Resource Component" };
+        public static readonly Permission ResourceBasic = new Permission { Name = "ResourceBasic", Description = "Edit,Update Resource",ImpliedBy = new[] { ResourceAdmin} };
         public Feature Feature
         {
             get;set;
@@ -28,7 +28,7 @@ namespace DeviceManageSite
                 },
                 new PermissionStereotype
                 {
-                    Name="ResourceAdmin",
+                    Name="Administrator",
                     Permissions = new [] {ResourceAdmin}
                 }
             };

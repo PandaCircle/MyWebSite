@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Orchard.Mvc.Extensions;
 using Orchard.Themes;
+using Newtonsoft.Json;
 
 namespace DeviceManageSite.Controllers
 {
@@ -75,14 +76,31 @@ namespace DeviceManageSite.Controllers
             return this.RedirectLocal(returnUrl, () => RedirectToAction("Index"));
         }
 
+        /// <summary>
+        /// 使用json返回选定的resType拥有的分类，列表呈现
+        /// </summary>
+        /// <param name="resType"></param>
+        /// <returns></returns>
         [HttpPost]
-        public ActionResult Edit(string clsName,string returnUrl)
+        public ActionResult GetCatagory(string resType)
         {
-            if (!OrchardService.Authorizer.Authorize(Permissions.ResourceBasic, T("不具有更改分类的权限")))
+            if (!OrchardService.Authorizer.Authorize(Permissions.ResourceBasic, T("不具查询分类的权限")))
                 return new HttpUnauthorizedResult();
-            
+            var catagoryResult = _resourceManageService.GetCatagory(resType);
+            var jsonStr = JsonConvert.SerializeObject(
+                new
+                {
+                    catagory = catagoryResult.Select(i => new
+                    {
+                        name = i.ClsName
+                    }).ToArray()
+                });
+            return new JsonResult() { Data = jsonStr };
+        }
 
-            return this.RedirectLocal(returnUrl, () => RedirectToAction("Index"));
+        public ActionResult CatagoryEdit()
+        {
+            return View();
         }
     }
 }

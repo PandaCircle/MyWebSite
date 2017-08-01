@@ -23,6 +23,7 @@ namespace DeviceManageSite.Services
         ClassifyRecord GetClsByName(string clsName);
         ClassifyRecord GetClsById(int id);
         IEnumerable<ResourceRecord> GetClssifiedResources(int clsId);
+        IEnumerable<ClassifyRecord> GetCatagory(string resType);
     }
 
     public class ResourceManageService : IResourceManageService
@@ -134,6 +135,14 @@ namespace DeviceManageSite.Services
             {
                 RemoveClassifyResource(rid, clsName);
             }
+        }
+
+        public IEnumerable<ClassifyRecord> GetCatagory(string resType)
+        {
+            var resTypeResult = GetResTypeByName(resType);
+            if (resTypeResult == null)
+                return null;
+            return resTypeResult.Classes;
         }
     }
 }

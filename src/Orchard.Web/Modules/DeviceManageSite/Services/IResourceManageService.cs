@@ -107,6 +107,9 @@ namespace DeviceManageSite.Services
 
         public IEnumerable<ResourceRecord> GetClssifiedResources(int clsId)
         {
+            var cls = GetClsById(clsId);
+            if (cls == null)
+                return null;
             return _resClassifyRepository.Get(clsId).ClassifyResourceRecords.Select(i => i.Resource);
         }
 

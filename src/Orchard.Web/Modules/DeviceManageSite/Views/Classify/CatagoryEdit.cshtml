@@ -6,19 +6,27 @@
 }
 
 <fieldset>
-    <button type="button" id="getcatagory">@T("获得类别")</button>
+    <button type="button" id="catagory_ip" >@T("Ip地址")</button>
+    <button type="button" id="catagory_tel" >@T("电话")</button>
 </fieldset>
+
 <fieldset>
     <ul data-bind="foreach:catagorylist">
-        <li data-bind="text:name"></li>
+        <li><a href="javascript:void(0);" data-bind="attr:{id:clsid},text:name" class="clsAction"></a> </li>
     </ul>
 </fieldset>
 
+<fieldset>
+    <ul data-bind="foreach:resourcelist">
+        <li data-bind="text:content"></li>
+    </ul>
+</fieldset>
 
 <script type="text/javascript">
    
     var catagoryEditSettings = {
         getCatagoryAction: '@Url.Action("GetCatagory","Classify",new { area ="DeviceManageSite"})',
+        getClassifiedResourceAction:'@Url.Action("GetResourceEditList","Classify", new { area = "DeviceManageSite" })',
         antiForgeryToken: '@Html.AntiForgeryTokenValueOrchard()',
 
     }

@@ -87,16 +87,34 @@ namespace DeviceManageSite.Controllers
             if (!OrchardService.Authorizer.Authorize(Permissions.ResourceBasic, T("不具查询分类的权限")))
                 return new HttpUnauthorizedResult();
             var catagoryResult = _resourceManageService.GetCatagory(resType);
+            if (catagoryResult == null) return Json(false);
             var jsonStr = JsonConvert.SerializeObject(
                 new
                 {
                     catagory = catagoryResult.Select(i => new
                     {
                         name = i.ClsName,
-                        id = "cata-" + i.Id
+                        clsid = "cata-" + i.Id
                     }).ToArray()
                 });
             return new JsonResult() { Data = jsonStr };
+        }
+
+        [HttpPost]
+        public ActionResult GetResourceEditList(int clsId)
+        {
+            if(!OrchardService.Authorizer.Authorize(Permissions.ResourceBasic,T("不具有查询资源的权限")))
+                return new HttpUnauthorizedResult();
+            var resResult = _resourceManageService.GetClssifiedResources(clsId);
+            if (resResult == null)
+                return Json(false);
+            var clsResult = _resourceManageService.GetClsById(clsId);
+            if (clsResult == null)
+                return Json(false);
+            var typeResourceResult = clsResult.ResourceType.Resources;
+            var jsonObj = typeResourceResult.Select(i => new { Content = i.Content, Classified = resResult.Contains(i) }).ToArray();
+
+            return new JsonResult() { Data = JsonConvert.SerializeObject(new { resources = jsonObj }) };
         }
 
         [Themed]

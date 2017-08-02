@@ -1,3 +1,25 @@
-﻿<fieldset>
-    <button type="button">@T("获得类别")</button>
+﻿@{ 
+    Script.Require("jQuery").AtHead();
+    Script.Include("knockout-3.4.2.js").AtFoot();
+    Script.Include("catagoryManage.js").AtFoot();
+    
+}
+
+<fieldset>
+    <button type="button" id="getcatagory">@T("获得类别")</button>
 </fieldset>
+<fieldset>
+    <ul data-bind="foreach:catagorylist">
+        <li data-bind="text:name"></li>
+    </ul>
+</fieldset>
+
+
+<script type="text/javascript">
+   
+    var catagoryEditSettings = {
+        getCatagoryAction: '@Url.Action("GetCatagory","Classify",new { area ="DeviceManageSite"})',
+        antiForgeryToken: '@Html.AntiForgeryTokenValueOrchard()',
+
+    }
+</script>

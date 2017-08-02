@@ -92,12 +92,14 @@ namespace DeviceManageSite.Controllers
                 {
                     catagory = catagoryResult.Select(i => new
                     {
-                        name = i.ClsName
+                        name = i.ClsName,
+                        id = "cata-" + i.Id
                     }).ToArray()
                 });
             return new JsonResult() { Data = jsonStr };
         }
 
+        [Themed]
         public ActionResult CatagoryEdit()
         {
             return View();

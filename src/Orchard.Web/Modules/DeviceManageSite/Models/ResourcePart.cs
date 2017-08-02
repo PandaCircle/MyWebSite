@@ -13,6 +13,10 @@ namespace DeviceManageSite.Models
 
     public class ResourceRecord
     {
+        public ResourceRecord()
+        {
+            Classes = new List<ClsResRecord>();
+        }
         public virtual int Id { get; set; }
         public virtual string Content { get; set; }
         /// <summary>
@@ -27,6 +31,12 @@ namespace DeviceManageSite.Models
 
     public class ResourceTypeRecord
     {
+        public ResourceTypeRecord()
+        {
+            Resources = new List<ResourceRecord>();
+            Classes = new List<ClassifyRecord>();
+        }
+
         public virtual int Id { get; set; }
         public virtual string DisplayName { get; set; }
         [CascadeAllDeleteOrphan]

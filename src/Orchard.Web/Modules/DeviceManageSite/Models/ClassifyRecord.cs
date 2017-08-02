@@ -8,6 +8,11 @@ namespace DeviceManageSite.Models
 {
     public class ClassifyRecord
     {
+        public ClassifyRecord()
+        {
+            ClassifyResourceRecords = new List<ClsResRecord>();
+        }
+
         public virtual int Id { get; set; }
         public virtual string ClsName { get; set; }
         public virtual ResourceTypeRecord ResourceType { get; set; }

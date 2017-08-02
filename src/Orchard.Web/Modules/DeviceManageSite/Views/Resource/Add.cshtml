@@ -1,0 +1,18 @@
+﻿@{ 
+    Script.Require("jQuery").AtFoot();
+    Script.Include("knockout-3.4.2.js").AtFoot();
+    Script.Include("resourceManage.js").AtFoot();
+}
+<fieldset>
+    <h3>添加 ：</h3>
+    <button type="button" id="ipadd">@T("Ip地址")</button>
+    <button type="button" id="teladd">@T("电话")</button>
+</fieldset>
+
+<div data-bind="visible : ipSelected()">
+    <h2>IP Edit Area</h2>
+</div>
+
+<div data-bind="visible :telSelected()">
+    <h2>Tel Edit Area</h2>
+</div>

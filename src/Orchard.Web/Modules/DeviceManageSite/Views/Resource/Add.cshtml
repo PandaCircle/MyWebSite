@@ -2,6 +2,8 @@
     Script.Require("jQuery").AtFoot();
     Script.Include("knockout-3.4.2.js").AtFoot();
     Script.Include("resourceManage.js").AtFoot();
+
+    var resType = (string)Model.resType;
 }
 <fieldset>
     <h3>添加 ：</h3>
@@ -19,6 +21,7 @@
 
 @using (Html.BeginFormAntiForgeryPost()) {
     @Html.ValidationSummary()
+    @Html.Hidden("resType",resType)
     @Display(Model)
 }
 

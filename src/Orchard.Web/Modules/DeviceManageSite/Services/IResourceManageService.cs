@@ -24,6 +24,7 @@ namespace DeviceManageSite.Services
         ClassifyRecord GetClsById(int id);
         IEnumerable<ResourceRecord> GetClssifiedResources(int clsId);
         IEnumerable<ClassifyRecord> GetCatagory(string resType);
+        ResourceRecord NewResource(string content, ResourceTypeRecord resType);
     }
 
     public class ResourceManageService : IResourceManageService
@@ -146,6 +147,18 @@ namespace DeviceManageSite.Services
             if (resTypeResult == null)
                 return null;
             return resTypeResult.Classes;
+        }
+
+        public ResourceRecord NewResource(string content, ResourceTypeRecord resType)
+        {
+            var result = _resourceRepository.Get(i => i.Content == content);
+            if (result == null)
+            {
+                result = new ResourceRecord { Content = content, ResourceType = resType };
+                _resourceRepository.Create(result);
+            }
+            return result;
+
         }
     }
 }

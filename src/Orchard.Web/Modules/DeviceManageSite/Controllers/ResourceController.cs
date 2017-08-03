@@ -1,4 +1,6 @@
-﻿using Orchard;
+﻿using DeviceManageSite.Services;
+using Orchard;
+using Orchard.ContentManagement;
 using Orchard.Localization;
 using Orchard.Themes;
 using System;
@@ -11,12 +13,17 @@ namespace DeviceManageSite.Controllers
 {
     public class ResourceController : Controller
     {
+        private readonly IContentManager _contentManager;
+        private readonly IEnumerable<IDeviceResource> _resourceParts;
 
         public ResourceController(
-            IOrchardServices orchardService
+            IOrchardServices orchardService,
+            IEnumerable<IDeviceResource> resourceParts
             )
         {
             OrchardService = orchardService;
+            _contentManager = OrchardService.ContentManager;
+            _resourceParts = resourceParts;
             T = NullLocalizer.Instance;
         }
 
@@ -30,11 +37,18 @@ namespace DeviceManageSite.Controllers
         }
 
         [Themed]
-        public ActionResult Add()
+        public ActionResult Add(string resType)
         {
             if (!OrchardService.Authorizer.Authorize(Permissions.ResourceBasic, T("需要更高权限添加资源")))
                 return new HttpUnauthorizedResult();
-            return View();
+            var creator = _contentManager.New("ResourceCreator");
+            var matchPart = _resourceParts.Where(i => i.ResourceType == resType).SingleOrDefault();
+            if (matchPart == null)
+                return new HttpNotFoundResult();
+            creator.Weld(matchPart.Part);
+
+            var creatorShape = _contentManager.BuildEditor(creator); 
+            return View(creatorShape);
         }
 
     }

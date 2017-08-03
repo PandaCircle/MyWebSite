@@ -16,3 +16,9 @@
 <div data-bind="visible :telSelected()">
     <h2>Tel Edit Area</h2>
 </div>
+
+@using (Html.BeginFormAntiForgeryPost()) {
+    @Html.ValidationSummary()
+    @Display(Model)
+}
+

@@ -112,6 +112,8 @@
     <Compile Include="Services\IDeviceResource.cs" />
     <Compile Include="Services\IResourceManageService.cs" />
     <Compile Include="Migrations.cs" />
+    <Compile Include="ViewModels\ResIndexViewModel.cs" />
+    <Compile Include="ViewModels\ResTypeViewModel.cs" />
     <Compile Include="ViewModels\ResViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +167,15 @@
     <Content Include="Placement.info">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Resource\Resource.Manage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Resource\ResourceType.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Resource\List.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -9,5 +9,8 @@ namespace DeviceManageSite.ViewModels
     {
         public int ResId { get; set; }
         public string DisplayContent { get; set; }
+        public int Using { get; set; }
+        public string Catagories { get; set; }
+        public bool IsChecked { get; set; }
     }
 }

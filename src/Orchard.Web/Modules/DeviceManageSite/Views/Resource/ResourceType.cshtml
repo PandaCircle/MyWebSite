@@ -1,0 +1,5 @@
+﻿@model DeviceManageSite.ViewModels.ResTypeViewModel
+
+<div>
+    <a href="@Url.Action("List",new { typeId = Model.resTypeId })"><h2>@Model.ResTypeName</h2></a><span>可用数量：@Model.Remains</span>
+</div>

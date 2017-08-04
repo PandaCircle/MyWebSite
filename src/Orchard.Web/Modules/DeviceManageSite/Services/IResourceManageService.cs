@@ -17,12 +17,14 @@ namespace DeviceManageSite.Services
         void RemoveClassifyResource(int resId,string clsName);
         void RemoveClassifyResource(int[] resIds, string clsName);
         void DeleteClassify(int clsId);
+        void DeleteResource(int resId);
         IEnumerable<ResourceTypeRecord> ResourceTypes();
         ResourceTypeRecord GetResTypeByName(string resType);
         ResourceTypeRecord GetResTypeById(int id);
         ClassifyRecord GetClsByName(string clsName);
         ClassifyRecord GetClsById(int id);
         IEnumerable<ResourceRecord> GetClssifiedResources(int clsId);
+        IEnumerable<ResourceRecord> GetResourcesByType(int resTypeId);
         IEnumerable<ClassifyRecord> GetCatagory(string resType);
         ResourceRecord NewResource(string content, ResourceTypeRecord resType);
     }
@@ -79,7 +81,7 @@ namespace DeviceManageSite.Services
 
         public int Remians(string type)
         {
-            return _resourceRepository.Table.Fetch(i => i.ResourceType.DisplayName == type && i.AttachUnit == 0).Count();
+            return _resourceRepository.Fetch(i => i.ResourceType.DisplayName == type && i.AttachUnit == 0).Count();
         }
 
         public IEnumerable<ResourceTypeRecord> ResourceTypes()
@@ -159,6 +161,20 @@ namespace DeviceManageSite.Services
             }
             return result;
 
+        }
+
+        public IEnumerable<ResourceRecord> GetResourcesByType(int resTypeId)
+        {
+            return _resTypeRepository.Get(resTypeId).Resources;
+        }
+
+        public void DeleteResource(int resId)
+        {
+            _authorizationService.CheckAccess(Permissions.ResourceAdmin, OrchardService.WorkContext.CurrentUser, null);
+            var result = _resourceRepository.Get(resId);
+            if (result == null)
+                return;
+            _resourceRepository.Delete(result);
         }
     }
 }

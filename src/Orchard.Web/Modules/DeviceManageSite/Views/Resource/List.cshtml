@@ -1,0 +1,51 @@
+﻿@model DeviceManageSite.ViewModels.ResIndexViewModel
+@using Orchard.Utility.Extensions;
+
+@{ 
+    Script.Require("jQuery");
+}
+
+@using (Html.BeginFormAntiForgeryPost())
+{
+    @Html.Hidden("returnUrl",Request.ToUrlString())
+    @Html.ValidationSummary()
+    <fieldset>
+        <button type="submit">@T("删除")</button>
+    </fieldset>
+    <fieldset>
+        <table class="items">
+            <thead>
+                <tr>
+                    <th scope="col"><input type="checkbox" class="check-all" /></th>
+                    <th scope="col">@T("资源内容")</th>
+                    <th scope="col">@T("状态")</th>
+                    <th scope="col">@T("分类")</th>
+                </tr>
+            </thead>
+            @{ var itemIndex = 0;}
+            @foreach(var res in Model.DeviceResources)
+            {
+                
+                <tr>
+                    <td>
+                        <input type="hidden" value="@res.ResId" name="@Html.NameOf(m=>m.DeviceResources[itemIndex].ResId)" />
+                        <input type="checkbox" value="true" name="@Html.NameOf(m=>m.DeviceResources[itemIndex].IsChecked)" />
+                    </td>
+                    <td>
+                        @res.DisplayContent
+                    </td>
+                    <td>
+                        @(res.Using ==0 ? "--":"在用")
+                    </td>
+                    <td>
+                        @res.Catagories
+                    </td>
+                </tr>
+                itemIndex++;
+            }
+        </table>
+    </fieldset>
+    <fieldset>
+        <p>资源数合计：@itemIndex</p>
+    </fieldset>
+}

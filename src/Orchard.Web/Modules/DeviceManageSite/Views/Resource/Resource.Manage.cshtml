@@ -1,0 +1,10 @@
+﻿@model DeviceManageSite.ViewModels.ResViewModel
+@using Orchard.Utility.Extensions;
+
+
+<div>
+    @Model.DisplayContent
+</div>
+<div class="action">
+    <a href="@Url.Action("Delete",new { Model.ResId, returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString() })">@T("删除")</a>
+</div>

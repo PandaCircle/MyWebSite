@@ -1,9 +1,13 @@
 ﻿using DeviceManageSite.Services;
+using DeviceManageSite.ViewModels;
 using Orchard;
 using Orchard.ContentManagement;
+using Orchard.DisplayManagement;
 using Orchard.Localization;
 using Orchard.Mvc.Extensions;
 using Orchard.Themes;
+using Orchard.UI.Admin;
+using Orchard.UI.Notify;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,26 +20,66 @@ namespace DeviceManageSite.Controllers
     {
         private readonly IContentManager _contentManager;
         private readonly IEnumerable<IDeviceResource> _resourceParts;
+        private readonly IResourceManageService _resourceManageService;
 
         public ResourceController(
             IOrchardServices orchardService,
-            IEnumerable<IDeviceResource> resourceParts
+            IEnumerable<IDeviceResource> resourceParts,
+            IResourceManageService resourceManageService,
+            IShapeFactory shapeFactory
             )
         {
             OrchardService = orchardService;
             _contentManager = OrchardService.ContentManager;
             _resourceParts = resourceParts;
+            _resourceManageService = resourceManageService;
             T = NullLocalizer.Instance;
+            Shape = shapeFactory;
         }
 
         public IOrchardServices OrchardService { get; set; }
+        public dynamic Shape { get; set; }
         public Localizer T { get; set; }
 
         // GET: Resource
         [Themed]
         public ActionResult Index()
         {
-            return View();
+            var typeResult = _resourceManageService.ResourceTypes();
+            List<ResTypeViewModel> typeViewList = new List<ResTypeViewModel>();
+            foreach(var i in typeResult)
+            {
+                ResTypeViewModel model = new ResTypeViewModel
+                {
+                    resTypeId = i.Id,
+                    ResTypeName = i.DisplayName,
+                    Remains = _resourceManageService.Remians(i.DisplayName)
+                    //Remains = 1
+                };
+                typeViewList.Add(model);
+            }
+            var listShape = Shape.List();
+            var viewModel = Shape.viewModel()
+                .ContentItems(listShape)
+                .ResTypeList(typeViewList);
+            return View(viewModel);
+        }
+
+        [HttpPost,ActionName("List")]
+        public ActionResult ListPost(string returnUrl)
+        {
+            if (!OrchardService.Authorizer.Authorize(Permissions.ResourceBasic, T("需要更高权限删除资源")))
+                return new HttpUnauthorizedResult();
+            var viewModel = new ResIndexViewModel { DeviceResources = new List<ResViewModel>() };
+            UpdateModel(viewModel);
+
+            var checkedList = viewModel.DeviceResources.Where(i => i.IsChecked);
+            foreach(var i in checkedList)
+            {
+                _resourceManageService.DeleteResource(i.ResId);
+            }
+            OrchardService.Notifier.Information(T("已删除"));
+            return this.RedirectLocal(returnUrl, () => RedirectToAction("Index"));
         }
 
         [Themed]
@@ -76,6 +120,41 @@ namespace DeviceManageSite.Controllers
             }
             return this.RedirectLocal(returnUrl, () => RedirectToAction("Index"));
             
+        }
+
+        [Admin]
+        public ActionResult List(int typeId =0)
+        {
+            if (!OrchardService.Authorizer.Authorize(Permissions.ResourceBasic, T("需要更高权限查看资源")))
+                return new HttpUnauthorizedResult();
+            if (typeId == 0)
+                return new HttpNotFoundResult();
+            var list= _resourceManageService.GetResourcesByType(typeId);
+            List<ResViewModel> resViewList = new List<ResViewModel>();
+            foreach(var i in list)
+            {
+                ResViewModel model = new ResViewModel
+                {
+                    DisplayContent = i.Content,
+                    Catagories = String.Join(",", i.Classes.Select(cls => cls.Classify.ClsName)),
+                    ResId = i.Id,
+                    Using = i.AttachUnit,
+                    IsChecked = false
+                };
+                resViewList.Add(model);
+            }
+            ResIndexViewModel viewModel = new ResIndexViewModel { DeviceResources = resViewList };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id,string returnUrl)
+        {
+            if (!OrchardService.Authorizer.Authorize(Permissions.ResourceBasic, T("需要更高权限删除资源")))
+                return new HttpUnauthorizedResult();
+            _resourceManageService.DeleteResource(id);
+            OrchardService.Notifier.Information(T("资源已删除"));
+            return this.RedirectLocal(returnUrl, () => RedirectToAction("Index"));
         }
 
         bool IUpdateModel.TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties)

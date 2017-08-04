@@ -1,1 +1,8 @@
-﻿<h2>Hello World</h2>
+﻿@{ 
+    var list = (IEnumerable<DeviceManageSite.ViewModels.ResTypeViewModel>)Model.ResTypeList;
+    var listShape = list.Select(i => Display.Partial(TemplateName:"ResourceType",Model:i));
+    Model.ContentItems.AddRange(listShape);
+}
+
+@Display(Model.ContentItems)
+

@@ -114,6 +114,7 @@
     <Compile Include="Services\IDeviceResource.cs" />
     <Compile Include="Services\IResourceManageService.cs" />
     <Compile Include="Migrations.cs" />
+    <Compile Include="ViewModels\CatagoryEditViewModel.cs" />
     <Compile Include="ViewModels\ResIndexViewModel.cs" />
     <Compile Include="ViewModels\ResTypeViewModel.cs" />
     <Compile Include="ViewModels\ResViewModel.cs" />

@@ -127,7 +127,8 @@ namespace DeviceManageSite.Controllers
         {
             if (!OrchardService.Authorizer.Authorize(Permissions.ResourceBasic, T("需要更高权限查看资源")))
                 return new HttpUnauthorizedResult();
-            if (typeId == 0)
+            var typeResult = _resourceManageService.GetResTypeById(typeId);
+            if (typeResult == null)
                 return new HttpNotFoundResult();
             var list= _resourceManageService.GetResourcesByType(typeId);
             List<ResViewModel> resViewList = new List<ResViewModel>();
@@ -143,7 +144,7 @@ namespace DeviceManageSite.Controllers
                 };
                 resViewList.Add(model);
             }
-            ResIndexViewModel viewModel = new ResIndexViewModel { DeviceResources = resViewList };
+            ResIndexViewModel viewModel = new ResIndexViewModel { DeviceResources = resViewList ,ResType = typeResult.DisplayName};
             return View(viewModel);
         }
 

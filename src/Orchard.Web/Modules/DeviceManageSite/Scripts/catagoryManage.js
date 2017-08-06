@@ -25,15 +25,20 @@ $(function () {
                     __RequestVerificationToken: settings.antiForgeryToken,
                 },
             }).done(function (result) {
+
+                viewModel.resourcelist.removeAll();
                 if (result) {
                     var jsonResult = JSON.parse(result);
-                    viewModel.catagorylist(jsonResult.catagory)
+                    viewModel.catagorylist(jsonResult.catagory);
+                    
 
                     console.log(jsonResult);
                 }
                 else {
                     viewModel.catagorylist.removeAll();
                 }
+
+                
             })
         })
 
@@ -48,6 +53,8 @@ $(function () {
                     __RequestVerificationToken: settings.antiForgeryToken,
                 },
             }).done(function (result) {
+
+                viewModel.resourcelist.removeAll();
                 if (result) {
                     var jsonResult = JSON.parse(result);
                     viewModel.catagorylist(jsonResult.catagory)

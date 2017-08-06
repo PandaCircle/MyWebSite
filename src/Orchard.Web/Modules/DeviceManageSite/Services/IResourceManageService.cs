@@ -26,6 +26,7 @@ namespace DeviceManageSite.Services
         IEnumerable<ResourceRecord> GetClssifiedResources(int clsId);
         IEnumerable<ResourceRecord> GetResourcesByType(int resTypeId);
         IEnumerable<ClassifyRecord> GetCatagory(string resType);
+        IEnumerable<ResourceTypeRecord> GetResType();
         ResourceRecord NewResource(string content, ResourceTypeRecord resType);
     }
 
@@ -175,6 +176,11 @@ namespace DeviceManageSite.Services
             if (result == null)
                 return;
             _resourceRepository.Delete(result);
+        }
+
+        public IEnumerable<ResourceTypeRecord> GetResType()
+        {
+            return _resTypeRepository.Table.ToList();
         }
     }
 }

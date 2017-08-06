@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Orchard.Mvc.Extensions;
 using Orchard.Themes;
 using Newtonsoft.Json;
+using DeviceManageSite.ViewModels;
 
 namespace DeviceManageSite.Controllers
 {
@@ -112,15 +113,40 @@ namespace DeviceManageSite.Controllers
             if (clsResult == null)
                 return Json(false);
             var typeResourceResult = clsResult.ResourceType.Resources;
-            var jsonObj = typeResourceResult.Select(i => new { Content = i.Content, Classified = resResult.Contains(i) }).ToArray();
+            var jsonObj = typeResourceResult.Select(i => new { Id = i.Id, Content = i.Content, Classified = resResult.Contains(i) }).ToArray();
 
             return new JsonResult() { Data = JsonConvert.SerializeObject(new { resources = jsonObj }) };
         }
 
         [Themed]
-        public ActionResult CatagoryEdit()
+        public ActionResult CatagoryEdit(string resType)
         {
-            return View();
+            if (!OrchardService.Authorizer.Authorize(Permissions.ResourceBasic, T("不具有查询分类的权限")))
+                return new HttpUnauthorizedResult();
+            var resTypeResult = _resourceManageService.GetResTypeByName(resType);
+            if (resTypeResult == null)
+                return new HttpNotFoundResult();
+
+            var catalist = _resourceManageService.GetCatagory(resType).Select(i => new CatagoryModel { CataId = i.Id, DisplayName = i.ClsName });
+            var typeList = _resourceManageService.GetResType().Select(i=> new ResTypeModel { TypeId = i.Id, DisplayName = i.DisplayName });
+
+            CatagoryEditViewModel viewModel = new CatagoryEditViewModel {
+                ResTypes = typeList,
+                Catagories = catalist ,
+                CurrentType = resType
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost,ActionName("CatagoryEdit")]
+        public ActionResult CatagoryEditPost(IEnumerable<int> resIds)
+        {
+            List<string> a = new List<string>();
+            foreach(var i in resIds)
+            {
+                a.Add(Convert.ToString(i));
+            }
+            return Content(string.Join(",", a));
         }
     }
 }

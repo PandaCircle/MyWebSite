@@ -8,6 +8,7 @@ namespace DeviceManageSite.ViewModels
     public class ResIndexViewModel
     {
         public IList<ResViewModel> DeviceResources { get; set; }
+        public string ResType { get; set; }
 
     }
 }

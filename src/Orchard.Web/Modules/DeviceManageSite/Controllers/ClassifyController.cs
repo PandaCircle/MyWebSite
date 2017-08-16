@@ -119,23 +119,33 @@ namespace DeviceManageSite.Controllers
         }
 
         [Themed]
-        public ActionResult CatagoryEdit(string resType)
+        public ActionResult Catagory()
         {
             if (!OrchardService.Authorizer.Authorize(Permissions.ResourceBasic, T("不具有查询分类的权限")))
                 return new HttpUnauthorizedResult();
-            var resTypeResult = _resourceManageService.GetResTypeByName(resType);
-            if (resTypeResult == null)
-                return new HttpNotFoundResult();
 
-            var catalist = _resourceManageService.GetCatagory(resType).Select(i => new CatagoryModel { CataId = i.Id, DisplayName = i.ClsName });
-            var typeList = _resourceManageService.GetResType().Select(i=> new ResTypeModel { TypeId = i.Id, DisplayName = i.DisplayName });
+            var viewModel = new CatagoryEditViewModel();
 
-            CatagoryEditViewModel viewModel = new CatagoryEditViewModel {
-                ResTypes = typeList,
-                Catagories = catalist ,
-                CurrentType = resType
-            };
+            var resTypeRecords = _resourceManageService.ResourceTypes();
+            if (resTypeRecords.Count() < 1)
+                return View(viewModel);
+
+            foreach(var i in resTypeRecords)
+            {
+                var resTypeModel = new ResTypeModel { TypeId = i.Id, DisplayName = i.DisplayName };
+                var catagoriesModel = i.Classes.Select(cata => new CatagoryModel { CataId = cata.Id, DisplayName = cata.ClsName });
+                resTypeModel.Catagories = catagoriesModel;
+                viewModel.ResTypes.Add(resTypeModel);
+            }
+            
             return View(viewModel);
+        }
+
+        [Themed]
+        public ActionResult CatagoryEdit(int id)
+        {
+
+            return View();
         }
 
         [HttpPost,ActionName("CatagoryEdit")]

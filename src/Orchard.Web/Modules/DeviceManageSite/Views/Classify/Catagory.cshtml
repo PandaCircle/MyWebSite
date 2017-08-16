@@ -1,0 +1,31 @@
+﻿@model DeviceManageSite.ViewModels.CatagoryEditViewModel
+
+@{ 
+    Script.Require("jQuery").AtHead();
+    Script.Include("knockout-3.4.2.js").AtFoot();
+    Script.Include("catagoryManage.js").AtFoot();
+
+}
+
+@if (Model.ResTypes.Count < 1)
+{
+    <fieldset>
+        <h2>@T("暂时没有分类可供归类哦~")</h2>
+    </fieldset>
+}
+else
+{
+    foreach(var i in Model.ResTypes)
+    {
+        <fieldset>
+            <legend>@i.DisplayName</legend>
+            <p>===========================</p>
+            <ul>
+                @foreach (var c in i.Catagories)
+                {
+                    <li>@Html.ActionLink(c.DisplayName, "CatagoryEdit",new { id = c.CataId})</li>
+                }
+            </ul>
+        </fieldset>
+    }
+}

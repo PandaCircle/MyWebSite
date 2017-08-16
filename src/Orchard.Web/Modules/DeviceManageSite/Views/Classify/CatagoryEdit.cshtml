@@ -1,56 +1,17 @@
-﻿@model DeviceManageSite.ViewModels.CatagoryEditViewModel
-
-@{ 
-    Script.Require("jQuery").AtHead();
-    Script.Include("knockout-3.4.2.js").AtFoot();
-    Script.Include("catagoryManage.js").AtFoot();
-    
+﻿
+@{
+    Layout = null;
 }
 
-<fieldset>
-    <select name="resType" id="resType">
-        @foreach(var i in Model.ResTypes)
-        {
-            @Html.SelectOption(i.DisplayName,i.DisplayName==Model.CurrentType,i.DisplayName)
-        }
-    </select>
-    <button type="button">@T("转到")</button>
-</fieldset>
+<!DOCTYPE html>
 
-<fieldset>
-    <ul>
-        @foreach(var i in Model.Catagories)
-        {
-            <li><a href="javascript:void(0);" id="@i.CataId" class="clsAction">@i.DisplayName</a></li>
-        }
-    </ul>
-    <ul data-bind="foreach:catagorylist">
-        <li><a href="javascript:void(0);" data-bind="attr:{id:clsid},text:name" class="clsAction"></a> </li>
-    </ul>
-</fieldset>
-
-@using (Html.BeginFormAntiForgeryPost())
-{
-    <fieldset>
-        <ul data-bind="foreach:resourcelist()">
-            <li>
-                <input type="checkbox" name="resIds" data-bind="attr:{checked:Classified,value:Id}" />
-                <span data-bind="text:Content"></span>
-            </li>
-        </ul>
-    </fieldset>
-    <fieldset>
-        <button type="submit">提交</button>
-    </fieldset>
-}
-
-
-<script type="text/javascript">
-   
-    var catagoryEditSettings = {
-        getCatagoryAction: '@Url.Action("GetCatagory","Classify",new { area ="DeviceManageSite"})',
-        getClassifiedResourceAction:'@Url.Action("GetResourceEditList","Classify", new { area = "DeviceManageSite" })',
-        antiForgeryToken: '@Html.AntiForgeryTokenValueOrchard()'
-
-    }
-</script>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CatagoryEdit</title>
+</head>
+<body>
+    <div> 
+    </div>
+</body>
+</html>

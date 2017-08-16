@@ -7,9 +7,12 @@ namespace DeviceManageSite.ViewModels
 {
     public class CatagoryEditViewModel
     {
-        public IEnumerable<ResTypeModel> ResTypes { get; set; }
-        public IEnumerable<CatagoryModel> Catagories { get; set; }
-        public string CurrentType { get; set; }
+        public CatagoryEditViewModel()
+        {
+            ResTypes = new List<ResTypeModel>();
+        }
+        public IList<ResTypeModel> ResTypes { get; set; }
+
     }
 
 
@@ -17,6 +20,7 @@ namespace DeviceManageSite.ViewModels
     {
         public int TypeId { get; set; }
         public string DisplayName { get; set; }
+        public IEnumerable<CatagoryModel> Catagories { get; set; }
     }
 
     public class CatagoryModel
@@ -24,4 +28,5 @@ namespace DeviceManageSite.ViewModels
         public int CataId { get; set; }
         public string DisplayName { get; set; }
     }
+
 }

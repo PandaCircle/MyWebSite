@@ -144,8 +144,24 @@ namespace DeviceManageSite.Controllers
         [Themed]
         public ActionResult CatagoryEdit(int id)
         {
+            if (!OrchardService.Authorizer.Authorize(Permissions.ResourceBasic, T("不具有修改分类的权限")))
+                return new HttpUnauthorizedResult();
+            var catagory = _resourceManageService.GetClsById(id);
+            if (catagory == null)
+                return new HttpNotFoundResult();
 
-            return View();
+            var res = catagory.ResourceType.Resources;
+            var classifiedRes = catagory.ClassifyResourceRecords.Select(i => new SimpleResViewModel { ResId = i.Resource.Id,ResContent=i.Resource.Content});
+            var uncataloguedRes = new List<SimpleResViewModel>(); 
+            foreach(var i in res)
+            {
+                if (!classifiedRes.Any(r => r.ResId == i.Id))
+                    uncataloguedRes.Add(new SimpleResViewModel { ResId = i.Id, ResContent = i.Content });
+            }
+
+            var viewModel = new CatagoryResourceEditModel { Classified = classifiedRes, Uncatalogued = uncataloguedRes };
+
+            return View(viewModel);
         }
 
         [HttpPost,ActionName("CatagoryEdit")]

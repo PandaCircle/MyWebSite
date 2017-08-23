@@ -1,17 +1,34 @@
-﻿
-@{
-    Layout = null;
+﻿@model DeviceManageSite.ViewModels.CatagoryResourceEditModel
+
+@{ 
+    Script.Require("jQuery").AtFoot();
+    Script.Include("knockout-3.4.2.js").AtFoot();
+    Script.Include("classify.js").AtFoot();
+
+    var classifiedArray = Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+        new
+        {
+            clssified = Model.Classified.ToArray()
+        }
+        ));
+
+    var uncataloguedArray = Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(
+        new
+        {
+            uncatalogued = Model.Uncatalogued.ToArray()
+        }));
 }
 
-<!DOCTYPE html>
+<fieldset>
+    
+    <ul data-bind="foreach: available">
+        <li data-bind="text:data.ResContent"></li>
+    </ul>
+</fieldset>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>CatagoryEdit</title>
-</head>
-<body>
-    <div> 
-    </div>
-</body>
-</html>
+<script type="text/javascript">
+    var settings = {
+        classifiedResource : (@classifiedArray)['classified']||[],
+        uncataloguedResource : (@uncataloguedArray)['uncatalogued']||[],
+    }
+</script>

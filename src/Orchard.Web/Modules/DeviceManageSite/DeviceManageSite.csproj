@@ -115,6 +115,7 @@
     <Compile Include="Services\IResourceManageService.cs" />
     <Compile Include="Migrations.cs" />
     <Compile Include="ViewModels\CatagoryEditViewModel.cs" />
+    <Compile Include="ViewModels\CatagoryResourceEditModel.cs" />
     <Compile Include="ViewModels\ResIndexViewModel.cs" />
     <Compile Include="ViewModels\ResTypeViewModel.cs" />
     <Compile Include="ViewModels\ResViewModel.cs" />
@@ -123,6 +124,7 @@
     <Content Include="Assets.json" />
     <Content Include="Assets\Styles.less" />
     <Content Include="Scripts\catagoryManage.js" />
+    <Content Include="Scripts\classify.js" />
     <Content Include="Scripts\knockout-3.4.2.js" />
     <Content Include="Scripts\resourceManage.js" />
     <Content Include="Styles\Styles.css" />

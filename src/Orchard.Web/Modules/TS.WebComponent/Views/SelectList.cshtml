@@ -1,0 +1,17 @@
+﻿@{ 
+    Script.Require("jQuery").AtFoot();
+    Script.Require("Knockout").AtFoot();
+    Script.Include("tscom-selectlist.js").AtFoot();
+    Style.Include("SelectList").AtFoot();
+
+
+}
+
+<div>
+    <ul class="myul">
+        <h2></h2>
+        <!-- ko foreach:labelList-->
+        <li data-bind="css:cssClass , text :eid"></li>
+        <!-- /ko -->
+    </ul>
+</div>

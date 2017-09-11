@@ -1,0 +1,62 @@
+.myul ul{
+clear: left; /*为列标题清除浮动*/
+padding: 5px;
+margin: 5px;
+height: 200px;
+}
+
+.myul li{
+  list-style: none;
+  float: left;    /*横向排列*/
+  display: block;
+  position: relative; /*相对定位，为伪类提供定位点*/
+  padding: 5px;
+  margin: 5px;
+  width: 40px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #999999;
+}
+
+.myul li.selected{
+  border: 3px solid #339966;
+  padding:3px;
+}
+
+.myul li a{
+  display: block; /*变成块级元素，设置其box属性*/
+  text-decoration: none; /*取消下划线*/
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #000;
+  text-align: center;
+  padding: 5px;     /*使用内补对应border的厚度变化，保持内容位置不变*/
+}
+
+.myul li:hover{
+  cursor: pointer;
+}
+.myul li.selected:after{
+  content: "";
+  border: 10px solid #669966;
+  border-radius: 10px;
+  display: block;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  height: 0;
+  width: 0;
+}
+.myul li.selected:before{
+  content:"+";
+  color: white;
+  font-weight: bolder;
+  background: rgba(255,255,255,0);
+  position: absolute;
+  display: block;
+  top:-15px;
+  right: -5px;
+  z-index: 10;
+}

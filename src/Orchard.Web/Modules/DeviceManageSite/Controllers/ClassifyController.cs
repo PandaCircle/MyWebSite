@@ -31,6 +31,8 @@ namespace DeviceManageSite.Controllers
         public Localizer T { get; set; }
 
         // GET: Classify
+
+        [Themed]
         public ActionResult Index()
         {
             return View();

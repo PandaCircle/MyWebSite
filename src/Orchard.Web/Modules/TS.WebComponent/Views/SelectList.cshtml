@@ -4,14 +4,33 @@
     Script.Include("tscom-selectlist.js").AtFoot();
     Style.Include("SelectList").AtFoot();
 
-
+    IEnumerable<TS.WebComponent.Models.SelectListItem> items = Model.Data;
 }
 
-<div>
-    <ul class="myul">
+@if (Model.Data == null)
+{
+    <div>
+        <p>@T("暂无可供显示的项目")</p>
+    </div>
+        }
+        else
+        {
+            var listItems = Model.Data;
+            var jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(
+                new
+                {
+                    data = listItems
+                }
+                );
+
+        <div>
+
+
+            <ul class="myul">
         <h2></h2>
         <!-- ko foreach:labelList-->
         <li data-bind="css:cssClass , text :eid"></li>
         <!-- /ko -->
     </ul>
 </div>
+}

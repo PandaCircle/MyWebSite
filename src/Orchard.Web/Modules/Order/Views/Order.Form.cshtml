@@ -1,0 +1,15 @@
+﻿@model Order.Models.OrderDetail
+@using (Html.BeginFormAntiForgeryPost())
+{
+    Html.LabelFor(m => m.PersonName);
+    Html.TextBoxFor(m => m.PersonName);
+    Html.LabelFor(m => m.Department);
+    Html.TextBoxFor(m => m.Department);
+    <div>
+        <input type="text" name="Items.ItemName" />
+        <input type="number" name="Items.Quantity" />
+        <input type="text" name="Items.Remark" />
+    </div>
+
+    <button type="submit">提交</button>
+}

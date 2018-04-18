@@ -278,7 +278,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchard.Resources", "Orchar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceManageSite", "Orchard.Web\Modules\DeviceManageSite\DeviceManageSite.csproj", "{0D801287-9BA5-4FA0-B541-29FD28A5CA1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order", "C:\Users\Hsgs\Desktop\Order\Order.csproj", "{A58C0DC8-7062-4140-9BF6-FA18357D0F81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order", "Orchard.Web\Modules\Order\Order.csproj", "{A58C0DC8-7062-4140-9BF6-FA18357D0F81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

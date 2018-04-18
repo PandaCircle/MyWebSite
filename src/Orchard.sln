@@ -278,6 +278,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orchard.Resources", "Orchar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceManageSite", "Orchard.Web\Modules\DeviceManageSite\DeviceManageSite.csproj", "{0D801287-9BA5-4FA0-B541-29FD28A5CA1A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order", "C:\Users\Hsgs\Desktop\Order\Order.csproj", "{A58C0DC8-7062-4140-9BF6-FA18357D0F81}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CodeCoverage|Any CPU = CodeCoverage|Any CPU
@@ -1114,6 +1116,16 @@ Global
 		{0D801287-9BA5-4FA0-B541-29FD28A5CA1A}.FxCop|Any CPU.Build.0 = Release|Any CPU
 		{0D801287-9BA5-4FA0-B541-29FD28A5CA1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D801287-9BA5-4FA0-B541-29FD28A5CA1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A58C0DC8-7062-4140-9BF6-FA18357D0F81}.CodeCoverage|Any CPU.ActiveCfg = Release|Any CPU
+		{A58C0DC8-7062-4140-9BF6-FA18357D0F81}.CodeCoverage|Any CPU.Build.0 = Release|Any CPU
+		{A58C0DC8-7062-4140-9BF6-FA18357D0F81}.Coverage|Any CPU.ActiveCfg = Release|Any CPU
+		{A58C0DC8-7062-4140-9BF6-FA18357D0F81}.Coverage|Any CPU.Build.0 = Release|Any CPU
+		{A58C0DC8-7062-4140-9BF6-FA18357D0F81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A58C0DC8-7062-4140-9BF6-FA18357D0F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A58C0DC8-7062-4140-9BF6-FA18357D0F81}.FxCop|Any CPU.ActiveCfg = Release|Any CPU
+		{A58C0DC8-7062-4140-9BF6-FA18357D0F81}.FxCop|Any CPU.Build.0 = Release|Any CPU
+		{A58C0DC8-7062-4140-9BF6-FA18357D0F81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A58C0DC8-7062-4140-9BF6-FA18357D0F81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1202,6 +1214,7 @@ Global
 		{98251EAE-A41B-47B2-AA91-E28B8482DA70} = {E9C9F120-07BA-4DFB-B9C3-3AFB9D44C9D5}
 		{D4E8F7C8-2DB2-4C50-A422-DA1DF1E3CC73} = {E9C9F120-07BA-4DFB-B9C3-3AFB9D44C9D5}
 		{0D801287-9BA5-4FA0-B541-29FD28A5CA1A} = {E9C9F120-07BA-4DFB-B9C3-3AFB9D44C9D5}
+		{A58C0DC8-7062-4140-9BF6-FA18357D0F81} = {E9C9F120-07BA-4DFB-B9C3-3AFB9D44C9D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4

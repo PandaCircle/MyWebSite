@@ -96,11 +96,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ApplyController.cs" />
+    <Compile Include="Drivers\OrderPartDriver.cs" />
+    <Compile Include="Handler\OrderPartHandler.cs" />
     <Compile Include="Models\ItemDetail.cs" />
     <Compile Include="Models\ItemDetailRecord.cs" />
-    <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\OrderPart.cs" />
     <Compile Include="Models\OrderRecord.cs" />
     <Compile Include="Migrations.cs" />
+    <Compile Include="Models\Parameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,9 @@
+﻿@model Order.Models.OrderPart
+
+<fieldset>
+   @Html.LabelFor(m => m.PersonName)
+   @Html.TextBoxFor(m => m.PersonName)
+   @Html.LabelFor(m => m.Department)
+   @Html.DropDownListFor(m => m.Department, new SelectList(Order.Models.Parameters.Departments))
+  
+</fieldset>

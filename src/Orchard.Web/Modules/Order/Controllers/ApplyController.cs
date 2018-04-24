@@ -25,7 +25,7 @@ namespace Order.Controllers
         // GET: Apply
         public ActionResult Index()
         {
-            return View(new OrderPart());
+            return View();
         }
     }
 }

@@ -1,0 +1,6 @@
+﻿<Placement>
+  <Place Order_Form="Content:10"/>
+  <Place Parts_Order_Edit="Content:10"/>
+  <Place Parts_ItemDetail="Content:10.2"/>
+  <Place Parts_ItemDetail_Edit="Content:10.2"/>
+</Placement>

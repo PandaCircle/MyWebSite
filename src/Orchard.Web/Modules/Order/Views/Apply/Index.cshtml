@@ -1,6 +1,11 @@
-﻿@model Order.Models.OrderPart
-@Html.Partial("Order.Form",Model)
-
-
-
-
+﻿<fieldset>
+    <div class="order-item">
+        <ul class="item-list">
+            <li>
+                <span>ItemCatalog</span><input name="itemname" />
+                <span>Quantity</span><input name="quantity" />
+                <span>Remark</span><input name="remark" />
+            </li>
+        </ul>
+    </div>
+</fieldset>

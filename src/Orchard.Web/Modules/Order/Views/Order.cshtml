@@ -1,0 +1,7 @@
+﻿@using Order.Models
+
+@{
+    OrderPart part = Model.ContentPart;
+}
+
+<p>@part.PersonName , @part.Department , @part.OrderTime @part.Items.Count</p>
